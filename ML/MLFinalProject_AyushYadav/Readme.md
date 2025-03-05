@@ -14,7 +14,7 @@ Static gestures:
 Approach for static gesture prediction :<br>
 1.) Dataset Creation:<br>
 Used mediapipe to extract 21 points on hand and stored the coordinates of all points on hand with respect to the wrist point in an csv file 
-stored this data for all the gestures (Static\DataSetCreation.py) dataset creation is done using this script
+stored this data for all the gestures (Static\DataSetCreation.py) dataset creation is done using this script<br>
 2.) Model Training :
 Trained an neural network on the created csv file (Static\datasetShuffle+Ann.ipynb) (model name is staticGestureANN5)<br>
 3.) Integrated the model:<br>
