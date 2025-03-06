@@ -4,7 +4,6 @@ import (
 	controllers "Simplegpt/Controllers"
 	database "Simplegpt/Database"
 	models "Simplegpt/Models"
-	"fmt"
 	"log"
 	"os"
 	"time"
@@ -53,7 +52,6 @@ func main() {
 	r.POST("/getAllTalksOfAUser",controllers.GetSessionsOfAUser(db,authSecretKey,sessionSecretKey))
 	r.POST("/setSession",controllers.SessionSetter(db,sessionSecretKey))
 	r.POST("/getAllTalksOfASession",controllers.GetAllTalksOfASession(db,sessionSecretKey))
-	fmt.Println("hello boss")
 	r.Run(listeningPort)
 	
 }

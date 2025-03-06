@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 func ConnectToDB(userName, userPassword, dbName, sslMode string) *gorm.DB {
+	//dsn=data source name
+
 	dsn := "host=localhost user=" + userName + " password=" + userPassword + " dbname=" + dbName + " port=5432 sslmode=" + sslMode
 	var err error
 	var DB *gorm.DB

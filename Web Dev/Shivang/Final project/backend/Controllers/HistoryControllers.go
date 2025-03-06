@@ -23,7 +23,7 @@ func GetSessionsOfAUser(db *gorm.DB,authSecretKey,sessionSecretKey string) func(
 			return
 		}
 		
-		fmt.Println(toDecode.Value,"\n",toDecode.String())
+		//fmt.Println(toDecode.Value,"\n",toDecode.String())
 		decodedToken,err:=utility.DecodingToken((toDecode.Value),authSecretKey)
 		if(err!=nil){
 			fmt.Println("error getting the authToken",err.Error());
@@ -34,6 +34,11 @@ func GetSessionsOfAUser(db *gorm.DB,authSecretKey,sessionSecretKey string) func(
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		        //getting body for the 
 		        // resolutiuon of issue
+
+				//well here we basically try
+				//to match the usercontext present in the 
+				//frontend with the authToken that is present
+
 		        var varification struct{
 		        	Username string `json:"username"`
 		        }
@@ -114,8 +119,8 @@ func GetTalksOfASessionForDownloadPurpose(db *gorm.DB,sessionSecretKey string) f
 		safeFileName := strings.ReplaceAll(stringToDownload.FileName, `"`, "") // Remove quotes
 		safeFileName = strings.ReplaceAll(safeFileName, " ", "_") // Replace spaces with underscores
 		safeFileName = strings.ReplaceAll(safeFileName, "\n", "") // Replace \n
-		fmt.Println(stringToDownload.StrToDownload)
-		fmt.Println("dashhhhhhh",safeFileName)
+		//fmt.Println(stringToDownload.StrToDownload)
+		//fmt.Println("dashhhhhhh",safeFileName)
 		err=os.WriteFile(safeFileName+".md",[]byte(stringToDownload.StrToDownload),0644)
 		if(err!=nil){
 			fmt.Println("Cann't write the file",err)
@@ -131,7 +136,7 @@ func GetTalksOfASessionForDownloadPurpose(db *gorm.DB,sessionSecretKey string) f
 
 		//removing the file after sending it
 		go func() {
-			err := os.Remove(stringToDownload.FileName+".md")
+			err := os.Remove(safeFileName+".md")
 			if err != nil {
 				println("Error deleting file:", err.Error())
 			} else {

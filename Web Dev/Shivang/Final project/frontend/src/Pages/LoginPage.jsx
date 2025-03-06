@@ -50,19 +50,19 @@ const LoginPage = () => {
       console.log("error in login",json.error);
       return ;
     }
-    console.log(json)
+    //console.log(json)
     await dispatchUserContext({type:"Login",username:json.user.username});
     await dispatchSessionContext({type:"SET_SESSION",username:json.user.username,sessionid:undefined})
     await dispatchQueryContext({type:"NAYA_SESSION"})
     await dispatchCurrentPageContext({type:"NEWSESSION"})
     sessionStorage.clear("sessionToken")
-    console.log(globalUserContext)
+    //console.log(globalUserContext)
     //session storage ka use so that refresh karne 
     // pe baar baar na ude homepage 
     sessionStorage.setItem("username",json.user.username);
     
     
-    console.log("new User Set globally",globalUserContext);
+    console.log("new User Set globally");
     navigator("/");
   }
 

@@ -5,7 +5,6 @@ import (
 	utility "Simplegpt/Utility"
 	"fmt"
 	"net/http"
-	"reflect"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -26,12 +25,17 @@ func CreateSession(db *gorm.DB,authSecretKey,sessionSecretKey string) func(c *gi
 			fmt.Println(er)
 			return 
 		}
-		fmt.Println(decoded,decoded["username"])
+		//fmt.Println(decoded,decoded["username"])
 		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		        //getting body for the 
 		        // resolutiuon of issue
+				
+				//well here we basically try
+				//to match the usercontext present in the 
+				//frontend with the authToken that is present
+
 		        var varification struct{
 		        	Username string `json:"username"`
 		        }
@@ -102,7 +106,7 @@ func GettingSingleSessionAllTalks(db *gorm.DB,sessionSecretKey string) func(c *g
 				"error":retrievedSession})
 			return
 		}
-		fmt.Println(reflect.TypeOf(sessionDetails.Context),[]map[string]string(sessionDetails.Context))
+		//fmt.Println(reflect.TypeOf(sessionDetails.Context),[]map[string]string(sessionDetails.Context))
 		c.JSON(http.StatusOK,gin.H{
 			"context":[]map[string]string(sessionDetails.Context),
 		})
@@ -115,7 +119,7 @@ func SessionSetter(db *gorm.DB,sessionSecretKey string) func(c *gin.Context){
 		c.BindJSON(&idBox)
 
 		expirationTime:=time.Now().Add(time.Hour*24)
-		fmt.Println("\n\n\n",idBox.ID,"\n\n\n")
+		//fmt.Println("\n\n\n",idBox.ID,"\n\n\n")
 		sessionToken,errorS:=utility.GenerateSessionToken(idBox.ID,sessionSecretKey,expirationTime)
 		if errorS!=nil{
 			fmt.Println("error in generating session token",errorS)

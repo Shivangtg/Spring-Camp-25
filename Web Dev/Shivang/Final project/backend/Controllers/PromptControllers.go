@@ -41,12 +41,12 @@ func GettingQueriesAnswer(db *gorm.DB,sessionSecretKey,groqApiKey string) func(c
 			fmt.Println(er,"dash")
 			return 
 		}
-		fmt.Println(decoded)
+		//fmt.Println(decoded)
 
 		//storing the session in local variable
 		var session models.Session
 		isSessionRetrivedError:=db.Where("id = ?",decoded["sessionid"]).First(&session)
-		fmt.Println(isSessionRetrivedError)
+		//fmt.Println(isSessionRetrivedError)
 		if isSessionRetrivedError.Error!=nil{
 			fmt.Println("cann't retreive User")
 			c.JSON(http.StatusInternalServerError,gin.H{"message":"unable to retreive user","error":isSessionRetrivedError})
@@ -68,7 +68,7 @@ func GettingQueriesAnswer(db *gorm.DB,sessionSecretKey,groqApiKey string) func(c
 
 			
 			// fmt.Println("\n\n\nJOKER HU MAIN \n\n\n")
-			fmt.Println(payload[0]["content"])
+			//fmt.Println(payload[0]["content"])
 
 			db.Model(&session).Update("session_title",payload[0]["content"])
 			resp,err := client.R().
@@ -108,7 +108,7 @@ func GettingQueriesAnswer(db *gorm.DB,sessionSecretKey,groqApiKey string) func(c
 					db.Model(&session).Update("context", jsonContext)
 
 		
-		fmt.Println("Updated Session Context")
+		//fmt.Println("Updated Session Context")
 		c.JSON(http.StatusOK,gin.H{"message":"Added new Prompt in the database","llmResponse":groqResponse.Choices[0].Message.Content})
 	}
 }

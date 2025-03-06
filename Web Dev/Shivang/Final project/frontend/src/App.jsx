@@ -73,33 +73,41 @@ function App() {
         const response=await fetch(origin +"/getAllTalksOfASession",{
           method:"POST",
           credentials:"include",
+          body:JSON.stringify({id:parseInt(sessionStorage.getItem("sessionid"))})
         })
         const json=await response.json()
-        console.log(typeof(json.context))
-        dispatchQueryContext({type:"REFRESH_KA_COUNTER",context:json.context||[]})
+        //console.log(typeof(json.Context))
+        dispatchQueryContext({type:"REFRESH_KA_COUNTER",context:json.Context||[]})
       }
 
       useEffect(()=>{
         gettingBackUserAndSessionTalks()
-        console.log(globalUserContext)
+        //console.log(globalUserContext)
       },[])  
 
   }else if(sessionStorage.getItem("username")){
     const gettingBackUser=async function(){
-      if(sessionStorage.getItem("username")==null){
-        // iska matlab bande ne na login kiya na sign up 
-        // kyunki agar vo login ya sign up karta to ye 
-        // non empty hota but it is empty to hum bus 
-        // use login page pe redirect kar denge 
-        window.location.href = '/login';
-      }
+
+      /////////////////////////////////////////////////////////////
+            //well this is waste as session storage will contain
+            //username for comming inside this if else block
+            
+            if(sessionStorage.getItem("username")==null){
+              // iska matlab bande ne na login kiya na sign up 
+              // kyunki agar vo login ya sign up karta to ye 
+              // non empty hota but it is empty to hum bus 
+              // use login page pe redirect kar denge 
+              window.location.href = '/login';
+            }
+      /////////////////////////////////////////////////////////////
+      
       //this set backs the usercontext
       //on frontend
       dispatchUserContext({type:"Login",username:sessionStorage.getItem("username")})
     } 
     useEffect(()=>{
       gettingBackUser()
-      console.log(globalUserContext,"gorrrr")
+      //console.log(globalUserContext,"gorrrr")
     },[]) 
 
   }else{
@@ -108,12 +116,15 @@ function App() {
     }
     useEffect(()=>{
       tenResponses()
-    })
+    },[])
   }
-  //implemented the feature of 10 questions
-  //  without login in newSession page
+  //this else thing is there only for react soecific purposes
+  //as in react the order of hooks in each render should be same
+  //if this use effect hook is not present then order will break
+  //and react will have inner issues
+  
 
-  console.log(globalSessionContext,globalUserContext,"dash")
+  //console.log(globalSessionContext,globalUserContext,"dash")
 
   return (
           <ThemeProvider theme={globalThemeContext=="dark"?Theme.darkTheme:Theme.lightTheme}>

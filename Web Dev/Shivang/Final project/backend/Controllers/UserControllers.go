@@ -84,7 +84,7 @@ func LogIn(db *gorm.DB,authSecretKey string) func(c *gin.Context) {
 			return 
 		}
 
-		fmt.Println(req,"dash")
+		//fmt.Println(req,"dash")
 
 		//finding user in our database
 		var userDemanded models.User
@@ -94,7 +94,7 @@ func LogIn(db *gorm.DB,authSecretKey string) func(c *gin.Context) {
 			c.JSON(http.StatusBadRequest,gin.H{"message":"User with provided username is not present on our database please sign up","error":"User with provided username is not present on our database please sign up"})
 			return 
 		}
-		fmt.Println(req,userDemanded.Password)
+		//fmt.Println(req,userDemanded.Password)
 		//verifying the hashed password 
 		if utility.IsAuthentic(userDemanded.Password,req.Password){
 			//generating Authtoken

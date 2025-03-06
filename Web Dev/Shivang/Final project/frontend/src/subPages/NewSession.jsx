@@ -60,8 +60,10 @@ const NewSession = () => {
       console.log("got an error :",json.error)
       return
     }
-    console.log("dash",json)
+    //console.log("dash",json)
     dispatchQueryContext({type:"ADD_SERVER_MESSAGE",payload:{"role":"assistant","content":json.llmResponse}})
+
+    setSearchedString("")
     //made to get back session talks on page 
     //refresh
     // sessionStorage.setItem("session talks",globalQueryContext)

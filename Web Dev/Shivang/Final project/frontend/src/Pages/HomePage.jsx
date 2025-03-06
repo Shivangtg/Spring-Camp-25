@@ -128,9 +128,9 @@ const HomePage = (props) => {
   //this alone wont work as react effects and states 
   // only runs after rendering 
   useEffect(()=>{
-    console.log(sessionStorage.getItem("username") ,sessionStorage.getItem("sessionid"),"bada gadha")
+    //console.log(sessionStorage.getItem("username") ,sessionStorage.getItem("sessionid"),"bada gadha")
     if(sessionStorage.getItem("username")==null && sessionStorage.getItem("sessionid")==null){
-      console.log("gadha")
+      //console.log("gadha")
       navigator("/login")
     }
   },[])
@@ -138,7 +138,7 @@ const HomePage = (props) => {
   //chats logic
   const [chats,setChats]=useState([])
 
-  console.log(sessionStorage.getItem("username") ,sessionStorage.getItem("sessionid"),"bada gadha2")
+  //console.log(sessionStorage.getItem("username") ,sessionStorage.getItem("sessionid"),"bada gadha2")
 
 if(sessionStorage.getItem("sessionid")==null && globalUserContext!=null && globalCurrentPageContext=="newsession"){
   return (

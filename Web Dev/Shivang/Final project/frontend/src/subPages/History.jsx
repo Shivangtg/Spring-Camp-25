@@ -20,7 +20,7 @@ marked.setOptions({
 
 
 const History = (props) => {
-  console.log(props.Data)
+  //console.log(props.Data)
   //getting various global context
   const {globalUserContext,dispatchUserContext}=useUserContext()
   const {globalQueryContext,dispatchQueryContext}=useQueryContext()
@@ -34,16 +34,16 @@ const History = (props) => {
     return async function(){
       sessionStorage.setItem("sessionid",ID)
       dispatchSessionContext({type:"SET_SESSION",username:globalUserContext.username,sessionid:String(ID)})
-      console.log(props.Data[id])
+      //console.log(props.Data[id])
       dispatchQueryContext({type:"SAARI_BAATE",context:props.Data[id].context||[]})
-      console.log("mai hu badshah",id)
+      //console.log("mai hu badshah",id)
       dispatchCurrentPageContext({type:"PURANAPAGE"})
       const response= await fetch(origin+"/setSession",{
         method:"POST",
         credentials:"include",
         body:JSON.stringify({id:ID})
       })
-      console.log("got the session id")
+      //console.log("got the session id")
       navigator("/")
     }
   }
@@ -52,19 +52,19 @@ const History = (props) => {
     //creating the string to send
     return async function(){
       let str=""
-      console.log("GOD CREATED MATHS",props.Data[id],props.Data[id].context)
-      for (let i=0;i<(props.Data[id].context).length;i++){
-        console.log("these are the talk objects",props.Data[id].context[i])
+      //console.log("GOD CREATED MATHS",props.Data[id],props.Data[id].context)
+      for (let i=0;i<props.Data[id].context?(props.Data[id].context).length:0;i++){
+        //console.log("these are the talk objects",props.Data[id].context[i])
         str+="**"+props.Data[id].context[i].role+"**:";
         str+=props.Data[id].context[i].content+"\n\n"
       }
-      console.log(str)
+      //console.log(str)
       const markdownConvertedToHtml=await marked(str)
       const response=await fetch(origin+"/downloadTheTalks",{
         method:"POST",
         body:JSON.stringify({"fileName":props.Data[id].session_title,"strToDownload":markdownConvertedToHtml})
       })
-      console.log(response,"downloading markdown test")
+      //console.log(response,"downloading markdown test")
       let blob=await response.blob()
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
